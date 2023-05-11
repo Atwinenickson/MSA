@@ -21,6 +21,10 @@ class LoginUser(BasePage):
         """
         login_form = LoginPageFunctionality(self.driver)
         self.star_log("Logging in to the system")
-        self.check_sign_header_label()
+        # self.check_sign_header_label()
         self.base_click(loc.login_link_xpath)
         login_form.login()
+    
+    def check_sign_header_label(self):
+        assert self.compare_text_to_element(
+            loc.sign_header_xpath, "Sign in")

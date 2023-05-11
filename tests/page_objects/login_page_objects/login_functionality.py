@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException
 from tests.page_objects.base_page import BasePage
 
 
-class LoginPageFunctionality:
+class LoginPageFunctionality(BasePage):
 
     def __init__(self, driver: webdriver.Chrome):
         super().__init__(driver)
@@ -19,10 +19,6 @@ class LoginPageFunctionality:
         self.input_email_address()
         self.input_password()
         self.click_sign_in_button()         
-
-    def check_sign_header_label(self):
-        assert self.compare_text_to_element(
-            loc.sign_header_xpath, "Sign in")
         
     def check_email_label(self):
         assert self.compare_text_to_element(

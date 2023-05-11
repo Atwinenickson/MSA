@@ -30,6 +30,13 @@ class BasePage:
         if self.debug:
             logger.info(f"{msg:{decorator}^{num}}")
 
+    def error_log(self, msg, num=99, decorator="!"):
+        """
+        Generates an error log
+        - $$$$$ERROR$$$$$
+        """
+        logger.error(f"{msg:{decorator}^{num}}")
+
     def base_get_text(self, selector):
         """
         Returns a string, based on the given selector.
@@ -87,7 +94,6 @@ class BasePage:
 
             if enter:
                 element.send_keys(key.ENTER)
-            self.debug_action(f"Inputting {text} to {parent if parent is not None else ''}{selector}")
         else:
             self.error_log(
                 f"INPUT FIELD NOT FOUND: {parent if parent_condition else ''}{selector}")
@@ -97,8 +103,6 @@ class BasePage:
         """
         Clicks on the given xpath_string or element.
         """
-
-        self.debug_action(f"Clicking {parent if parent is not None else ''}{selector}")
         parent_condition = parent is not None and type(parent) is str
         if self.base_is_clickable(selector, parent) and self.base_is_visible(selector, parent):
             try:

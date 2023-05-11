@@ -1,5 +1,5 @@
 import pytest
-from tests.utilities.login import LoginUser, LogoutUser
+from tests.utilities.login import LoginUser
 
 @pytest.mark.usefixtures("setup")
 class BaseTest:

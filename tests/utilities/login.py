@@ -2,7 +2,6 @@ import time
 from tests.page_objects.base_page import BasePage
 from tests.page_objects.login_page_objects.login_functionality import LoginPageFunctionality
 from selenium.common.exceptions import TimeoutException
-from tests.page_objects.common_objects.pop_up_actions import PopUpActions
 from tests.utilities.custom_logger import LogGen
 from tests.utilities.read_properties import ReadConfig
 from selenium import webdriver

@@ -16,7 +16,7 @@ from tests.utilities.custom_logger import LogGen
 logger = LogGen.loggen()
 
 @pytest.fixture(scope='function')
-def setup(environment, browser, request):
+def setup(browser, request):
     """This method runs before every test method."""
     base_url = ReadConfig.get_application_url()
 
@@ -38,7 +38,7 @@ def setup(environment, browser, request):
     driver = get_browser_driver(browser, options)
     request.cls.driver = driver
 
-    implicit_duration = 60 if environment == "local" else 10
+    implicit_duration = 60
 
     driver.get(base_url)
     driver.implicitly_wait(implicit_duration)

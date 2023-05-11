@@ -1,0 +1,2 @@
+class ProductTestData():
+    product = "jacket"

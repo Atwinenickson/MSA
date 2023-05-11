@@ -6,9 +6,8 @@ import datetime
 from datetime import timedelta, date
 
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys as key
-
+from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
 from tests.utilities.custom_logger import LogGen
 
 """Parent of all pages
@@ -93,3 +92,36 @@ class BasePage:
             self.error_log(
                 f"INPUT FIELD NOT FOUND: {parent if parent_condition else ''}{selector}")
             raise TimeoutException
+        
+    def base_click(self, selector, parent=None, wait=10):
+        """
+        Clicks on the given xpath_string or element.
+        """
+
+        self.debug_action(f"Clicking {parent if parent is not None else ''}{selector}")
+        parent_condition = parent is not None and type(parent) is str
+        if self.base_is_clickable(selector, parent, wait) and self.base_is_visible(selector, parent, wait):
+            try:
+                element = self.base_get_element(
+                    selector, parent=parent, ec_type="click", wait=wait)
+                self.scroll_into_view(element)
+                element.click()
+                self.star_log(
+                    f"Clicked: {parent if parent is not None else ''}{selector}", decorator=" ")
+            except ElementClickInterceptedException:
+                self.error_log(
+                    f"BASE CLICK FAIL ON: {parent if parent is not None else ''}{selector}")
+        else:
+            self.error_log(
+                f"CANNOT BE CLICKED: {parent if parent is not None else ''}{selector}")
+            raise TimeoutException
+        
+    def base_is_clickable(self, selector, parent=None, wait=10):
+            """
+            Returns true if the given xpath/element is visible.
+            """
+            try:
+                return bool(self.base_get_element(selector))
+            except TimeoutException:
+                self.error_log(f"ELEMENT NOT CLICKABLE: {selector}")
+                return False

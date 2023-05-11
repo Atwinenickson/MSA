@@ -117,11 +117,11 @@ class BasePage:
             raise TimeoutException
         
     def base_is_clickable(self, selector, parent=None, wait=10):
-            """
-            Returns true if the given xpath/element is visible.
-            """
-            try:
-                return bool(self.base_get_element(selector))
-            except TimeoutException:
-                self.error_log(f"ELEMENT NOT CLICKABLE: {selector}")
-                return False
+        """
+        Returns true if the given xpath/element is visible.
+        """
+        try:
+            return bool(self.base_get_element(selector))
+        except TimeoutException:
+            self.error_log(f"ELEMENT NOT CLICKABLE: {selector}")
+            return False

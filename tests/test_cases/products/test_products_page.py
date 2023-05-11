@@ -14,6 +14,10 @@ class TestProductFixtures(BaseTest):
         page_title = self.driver.title
         assert page_title == ReadConfig.get_application_landing_title()
 
+    def check_product_title(self):
+        product_page_title = self.driver.title
+        assert product_page_title == ReadConfig.get_product_page_title()
+
     # @pytest.fixture
     def test_navigate_to_product_page(self):
         """This fixture verifies that the user can navigate to products page Successfully"""
@@ -23,10 +27,11 @@ class TestProductFixtures(BaseTest):
 
         login_page = LoginUser(self.driver)
         login_page.login()
+        self.check_page_title()
         time.sleep(3)
 
         product_page.star_log("Test Case 01")
         product_page.star_log("Navigate to Product Page")
         product_page.navigate_to_product_page()
-        self.check_page_title()
+        self.check_product_title()
         product_page.star_log("Successfully navigated to Product Page")

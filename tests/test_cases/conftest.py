@@ -44,6 +44,8 @@ def setup(browser, request):
     driver.implicitly_wait(implicit_duration)
     driver.maximize_window()
     driver.delete_all_cookies()
+    yield
+    pause_driver(close_driver)
     driver.close()
 
 def pytest_addoption(parser):
@@ -60,6 +62,11 @@ def browser(request):
 @pytest.fixture()
 def close_driver(request):
     return request.config.getoption("--close_driver")
+
+def pause_driver(close_driver):
+    if close_driver == "true":
+        return
+    input("\nPRESS ENTER TO CLOSE")
 
 
 def get_browser_driver(browser, browser_options):

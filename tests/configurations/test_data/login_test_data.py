@@ -1,3 +1,4 @@
 class LoginTestData():
-    email = "testautomationmfs@gmail.com"
-    password = "TestAutomation@123"
+    email = "atwinetigidi@gmail.com"
+    password = "Test2123"
+    

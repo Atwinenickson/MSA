@@ -13,4 +13,7 @@ class ProductFunctionality(BasePage):
 
     def navigate_to_product_page(self):
         """Method tests navigating to the products page"""
-        assert 1 == 1
+        self.scroll_into_view(product_elements.home_page_header_xpath)
+        self.base_click(product_elements.home_page_header_xpath)
+        self.scroll_into_view(product_elements.best_sellers_header_xpath)
+        self.base_click(product_elements.best_sellers_header_xpath)

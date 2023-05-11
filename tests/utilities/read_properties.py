@@ -24,3 +24,12 @@ class ReadConfig:
             'Common required information', 'page_title'
         )
         return page_landing_title
+
+    @staticmethod
+    def get_product_page_title():
+        """Method to get the landing title
+        """
+        product_page_title = config.get(
+            'Common required information', 'product_page_title'
+        )
+        return product_page_title

@@ -61,4 +61,3 @@ class TestUserViewProducts(TestProductFixtures):
         product_page.star_log("Add Product to card")
         product_page.user_can_add_product_to_cart()
         product_page.star_log("Successfully added product to cart")
-        self.clic

@@ -18,7 +18,7 @@ class TestProductFixtures(BaseTest):
         product_page_title = self.driver.title
         assert product_page_title == ReadConfig.get_product_page_title()
 
-    # @pytest.fixture
+    @pytest.fixture
     def test_navigate_to_product_page(self):
         """This fixture verifies that the user can navigate to products page Successfully"""
 
@@ -35,3 +35,17 @@ class TestProductFixtures(BaseTest):
         product_page.navigate_to_product_page()
         self.check_product_title()
         product_page.star_log("Successfully navigated to Product Page")
+
+class TestUserViewProducts(TestProductFixtures):
+
+    def test_user_can_view_all_products(self, test_navigate_to_product_page):
+        """This test verifies that the user can view all products"""
+
+        # Instantiation
+        product_page = ProductFunctionality(self.driver)
+        test_navigate_to_product_page
+
+        product_page.star_log("Test Case 01")
+        product_page.star_log("View All Products")
+        product_page.view_all_products()
+        product_page.star_log("Successfully viewed all products")

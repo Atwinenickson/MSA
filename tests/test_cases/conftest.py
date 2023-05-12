@@ -45,7 +45,7 @@ def setup(browser, request):
     driver.maximize_window()
     driver.delete_all_cookies()
     yield
-    pause_driver(close_driver)
+    # pause_driver(close_driver)
     driver.close()
 
 def pytest_addoption(parser):

@@ -17,3 +17,16 @@ class ProductFunctionality(BasePage):
         self.base_click(product_elements.home_page_header_xpath)
         self.scroll_into_view(product_elements.best_sellers_header_xpath)
         self.base_click(product_elements.best_sellers_header_xpath)
+
+    def view_all_products(self):
+        names = self.base_get_elements(product_elements.all_names_xpath)
+        prices = self.base_get_elements(product_elements.all_prices_xpath)
+        product_details = []
+
+        for name_elem, price_elem in zip(names, prices):
+            name = name_elem.text.strip()
+            price = price_elem.text.strip()
+            product_details.append((name, price))
+
+        sorted_price_details = sorted(product_details, key=lambda x: float(x[1].replace('$', '')))
+        print(sorted_price_details)

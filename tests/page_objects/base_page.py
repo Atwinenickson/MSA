@@ -1,10 +1,10 @@
 from selenium.webdriver import ActionChains
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
 from selenium import webdriver
-from selenium.webdriver.support.select import Select
+# from selenium.webdriver.support.select import Select
 import os
 from datetime import timedelta, date
 import datetime
@@ -134,7 +134,6 @@ class BasePage:
     def element_click(self, selector):
         locator = self.xpathstr_tuple(selector)
         element = WebDriverWait(self.driver, 120).until(ec.element_to_be_clickable(locator))
-        print(element)
         element.click()
 
     def base_click(self, selector, parent=None, wait=10):
@@ -348,7 +347,6 @@ class BasePage:
         This method moves the slides the slider to the right.
         """
         sliders = self.base_get_elements(selector, parent=parent, wait=wait)
-        print(sliders)
         left_slider = sliders[0]
         right_slider = sliders[1]
         move = ActionChains(self.driver)
@@ -361,5 +359,11 @@ class BasePage:
         """
         Selects an item in a select type dropdown.
         """
-        select = Select(self.base_get_element(selector, parent=parent))
-        select.select_by_visible_text(text)
+        element = self.driver.find_element(By.ID, selector)
+        dropdown_value = Select(element)
+        dropdown_value.select_by_value(text)
+
+    def get_all_text_under_div(self, selector):
+        elements = self.driver.find_elements(By.CSS_SELECTOR, selector)
+        text_list = [element.text for element in elements]
+        return text_list

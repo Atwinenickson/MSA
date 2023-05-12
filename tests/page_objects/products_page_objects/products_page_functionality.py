@@ -1,5 +1,6 @@
 
 import time
+import re
 from .products_page_elements import ProductElements
 from tests.configurations.test_data.product_test_data import ProductTestData
 from tests.page_objects.base_page import BasePage
@@ -64,7 +65,7 @@ class ProductFunctionality(BasePage):
         self.scroll_into_view(product_elements.quantity_label_xpath)
         self.base_send_keys(product_elements.quantity_xpath, test_data.quantity)
         time.sleep(3)
-        # self.select_item_in_dropdown(product_elements.size_select_xpath, "M")
+        self.select_item_in_dropdown(product_elements.size_select_id, "2")
         time.sleep(3)
         self.action_click(selector=product_elements.select_pink_xpath)
         time.sleep(3)
@@ -72,28 +73,36 @@ class ProductFunctionality(BasePage):
         time.sleep(3)
 
     def verify_product(self):
-        self.compare_text_to_element(product_elements.size_select_xpath, "M, Beige")
+        self.compare_text_to_element(product_elements.size_selected_xpath, "M, Beige")
         self.compare_text_to_element(product_elements.product_quantity_xpath, "3")
         self.compare_text_to_element(product_elements.product_price_xpath, "$152.98")
         self.compare_text_to_element(product_elements.total_title_xpath, "There are 3 items in your cart.")
 
     def verify_product_cost(self):
-        size_and_color = self.base_get_text(product_elements.size_select_xpath)
+        size_and_color = self.base_get_text(product_elements.size_selected_xpath)
         size, color = size_and_color.split(", ")
         quantity = self.base_get_text(product_elements.product_quantity_xpath)
 
-        total_product_cost = float(product_elements.total_product_cost_xpath.replace('$', ''))
-        total_shipping_cost = float(product_elements.total_shipping_cost_xpath.replace('$', ''))
-        total_cost = float(product_elements.total_cost_xpath.replace('$', ''))
+        product_summary = self.get_all_text_under_div(product_elements.product_summary_xpath)
+        # Extract numerical values using regular expressions
+        total_products = float(re.search(r'\$([\d\.]+)', product_summary[0]).group(1))
+        total_shipping = float(re.search(r'\$([\d\.]+)', product_summary[1]).group(1))
+        total = float(re.search(r'\$([\d\.]+)', product_summary[2]).group(1))
 
-        assert total_cost == total_product_cost + total_shipping_cost
+        print('Printing the receipt:')
+        print(f"Product Cost: {total_products}\nShipping Cost: {total_shipping}\nTotal Cost: {total}")
+        print('Printing the receipt:')
 
+        assert total == total_products + total_shipping
+
+        print()
+
+        print("Printing the Summary:")
         print(f"Size: {size}")
         print(f"Color: {color}")
         print(f"Quantity: {quantity}")
-        print(f"Total Product Cost: ${total_product_cost:.2f}")
-        print(f"Total Shipping Cost: ${total_shipping_cost:.2f}")
-        print(f"Total Cost: ${total_cost:.2f}")
-
-
+        print(f"Total Product Cost: ${total_products:.2f}")
+        print(f"Total Shipping Cost: ${total_shipping:.2f}")
+        print(f"Total Cost: ${total:.2f}")
+        print("Printing the Summary:")
    

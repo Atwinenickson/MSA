@@ -22,13 +22,14 @@ class ProductElements:
     quantity_label_xpath = "//label[normalize-space()='Quantity']"   
     quantity_xpath = "//input[@id='quantity_wanted']"
     size_select_xpath = "//select[@id='group_1']"
+    size_select_id = "group_1"
     select_pink_xpath = "//a[@id='color_7']"
 
     size_selected_xpath = "//span[@id='layer_cart_product_attributes']"
     product_quantity_xpath = "//span[@id='layer_cart_product_quantity']"
     product_price_xpath = "//span[@id='layer_cart_product_price']"
-    total_title_xpath = "//span[@class='ajax_cart_product_txt_s ']"
-
+    total_title_xpath = "(//div[contains(@class, 'layer_cart_cart')]//h2//span)[1]"
     total_product_cost_xpath = "//span[@class='ajax_block_products_total']"
-    total_shipping_cost_xpath = "//span[@class='ajax_cart_shipping_cost']"
+    total_shipping_cost_xpath = "//div[@class='layer_cart_row']//span[@class='ajax_cart_shipping_cost']"
     total_cost_xpath = "//span[@class='ajax_block_cart_total']"
+    product_summary_xpath = "div.layer_cart_row"

@@ -49,3 +49,16 @@ class TestUserViewProducts(TestProductFixtures):
         product_page.star_log("View All Products")
         product_page.view_all_products()
         product_page.star_log("Successfully viewed all products")
+
+    def test_user_can_add_product_to_carts(self, test_navigate_to_product_page):
+        """This test verifies that the user can view all products"""
+
+        # Instantiation
+        product_page = ProductFunctionality(self.driver)
+        test_navigate_to_product_page
+
+        product_page.star_log("Test Case 02")
+        product_page.star_log("Add Product to card")
+        product_page.user_can_add_product_to_cart()
+        product_page.star_log("Successfully added product to cart")
+        self.clic

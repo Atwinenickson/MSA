@@ -342,3 +342,24 @@ class BasePage:
             self.driver.execute_script(
                 "arguments[0].scrollIntoView({behavior: \"auto\", block: \"center\", inline: \"center\"});", element
             )
+
+    def slide_the_price_slider(self, selector, parent=None, wait=10):
+        """
+        This method moves the slides the slider to the right.
+        """
+        sliders = self.base_get_elements(selector, parent=parent, wait=wait)
+        print(sliders)
+        left_slider = sliders[0]
+        right_slider = sliders[1]
+        move = ActionChains(self.driver)
+        # Moving the left slider
+        move.click_and_hold(left_slider).move_by_offset(0, 0).release().perform()
+        # Moving the right slider
+        move.click_and_hold(right_slider).move_by_offset(-57, 0).release().perform()
+
+    def select_item_in_dropdown(self, selector, text, parent=None):
+        """
+        Selects an item in a select type dropdown.
+        """
+        select = Select(self.base_get_element(selector, parent=parent))
+        select.select_by_visible_text(text)

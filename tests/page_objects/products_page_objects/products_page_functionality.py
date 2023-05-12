@@ -30,3 +30,38 @@ class ProductFunctionality(BasePage):
 
         sorted_price_details = sorted(product_details, key=lambda x: float(x[1].replace('$', '')))
         print(sorted_price_details)
+
+    def user_can_add_product_to_cart(self):
+        self.scroll_into_view(product_elements.women_section_xpath)
+        time.sleep(5)
+        self.base_click(product_elements.women_section_xpath)
+        time.sleep(5)
+        self.base_click(product_elements.dresses_section_xpath)
+        time.sleep(5)
+        self.base_click(product_elements.evening_dresses_section_xpath)
+        time.sleep(5)
+        self.filter_dresses()
+        self.select_dress()
+
+    def filter_dresses(self):
+        # self.action_click(product_elements.medium_xpath)
+        # time.sleep(5)
+        self.action_click(product_elements.pink_xpath)
+        time.sleep(5)
+        self.scroll_into_view(product_elements.range_xpath)
+        self.slide_the_price_slider(product_elements.slider_xpath)
+        time.sleep(10)
+
+    def select_dress(self):
+        self.base_click(selector=product_elements.more_xpath)
+        time.sleep(5)
+        self.scroll_into_view(product_elements.quantity_label_xpath)
+        self.base_send_keys(product_elements.quantity_xpath, test_data.quantity)
+        time.sleep(3)
+        self.select_item_in_dropdown(product_elements.size_select_xpath, "M")
+        time.sleep(3)
+        self.action_click(selector=product_elements.select_pink_xpath)
+        time.sleep(3)
+        self.click_button("Add to cart")
+
+   

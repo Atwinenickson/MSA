@@ -94,7 +94,7 @@ Update New Booking
     
 
 Authenticate as Admin
-    # Ping Server
+    Ping Server
     ${HEADERS}=         Create Dictionary
     ...                 Content-Type=${CONTENT_TYPE}
     ...                 User-Agent=MFS
@@ -109,5 +109,5 @@ Authenticate as Admin
 
 Ping Server
     Create Session      ping        ${BASE_URL}     verify=True
-    ${response}=        GET On Session     ping        uri=/ping 
+    ${response}=        GET On Session     ping        /ping 
     Should Be Equal As Strings      ${response.status_code}     201

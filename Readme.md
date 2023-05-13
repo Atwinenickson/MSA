@@ -15,10 +15,13 @@ To run the web Selenium tests, use the `test_products.sh` file located in the `T
 
 ```shell
 ./Tests/test_products.sh
+```
 
 To run the API tests, use the `test_api.sh` file located in the API folder:
 
+```shell
 ./API/test_api.sh
+```
 
 ## Requirements
 

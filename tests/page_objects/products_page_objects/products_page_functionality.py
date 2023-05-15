@@ -62,10 +62,9 @@ class ProductFunctionality(BasePage):
         else:
             self.action_click(selector=product_elements.dress_xpath)
         time.sleep(5)
-        self.scroll_into_view(product_elements.quantity_label_xpath)
-        self.base_send_keys(product_elements.quantity_xpath, test_data.quantity)
-        time.sleep(3)
         self.select_item_in_dropdown(product_elements.size_select_id, "2")
+        time.sleep(3)
+        self.base_send_keys(product_elements.quantity_xpath, test_data.quantity)
         time.sleep(3)
         self.action_click(selector=product_elements.select_pink_xpath)
         time.sleep(3)
